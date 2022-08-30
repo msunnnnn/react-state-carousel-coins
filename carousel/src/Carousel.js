@@ -27,7 +27,7 @@ import Card from "./Card";
   function goBackward(){
     setCurrCardIdx(currCardIdx - 1);
   }
-
+//change visibility of arrows in css
   return (
     <div className="Carousel">
       <h1>{title}</h1>
