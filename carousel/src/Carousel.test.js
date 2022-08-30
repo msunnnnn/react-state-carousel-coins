@@ -38,10 +38,11 @@ it("works when you click on the left arrow", function() {
       title="images for testing"
     />
   );
+  // move forward in carousel
   const rightArrow = container.querySelector(".bi-arrow-right-circle");
   fireEvent.click(rightArrow);
   debug()
-  // expect the first image to show, but not the second
+  // expect the second image to show, but not the first
   expect(
     container.querySelector('img[alt="testing image 2"]')
   ).toBeInTheDocument();
@@ -49,17 +50,48 @@ it("works when you click on the left arrow", function() {
     container.querySelector('img[alt="testing image 1"]')
   ).not.toBeInTheDocument();
 
-  // move forward in the carousel
+  // move backward in the carousel
   const leftArrow = container.querySelector(".bi-arrow-left-circle");
   fireEvent.click(leftArrow);
   debug()
-  // expect the second image to show, but not the first
+  // expect the first image to show, but not the second
   expect(
     container.querySelector('img[alt="testing image 2"]')
   ).not.toBeInTheDocument();
   expect(
     container.querySelector('img[alt="testing image 1"]')
   ).toBeInTheDocument();
+});
+
+it("left arrow is hidden on first image", function() {
+  const { container, debug } = render(
+    <Carousel
+      photos={TEST_IMAGES}
+      title="images for testing"
+    />
+  );
+
+  // expect the left arrow to not be in the document
+  expect(
+    container.querySelector('.bi-arrow-left-circle')
+  ).not.toBeInTheDocument();
+});
+
+it("right arrow is hidden on last image", function() {
+  const { container, debug } = render(
+    <Carousel
+      photos={TEST_IMAGES}
+      title="images for testing"
+    />
+  );
+  // move forward in carousel twice
+  const rightArrow = container.querySelector(".bi-arrow-right-circle");
+  fireEvent.click(rightArrow);
+  fireEvent.click(rightArrow);
+  // expect the right arrow to not be in the document
+  expect(
+    container.querySelector('.bi-arrow-right-circle')
+  ).not.toBeInTheDocument();
 });
 
 
